@@ -1,0 +1,15 @@
+* nand
+
+.subckt nand2x1 a b o 
+M1 o b vdd vdd tp L=65n W= 325n 
+M2 o a vdd vdd tp L=65n W=325n
+M3 o a n0 vss tn L=65n W=130n 
+M4 n0 b vss vss tn L=65n W=130n 
+
+*BSIM 
+.model tp pmos level=54 version=4.8.3 TOX=1.85n
+.model tn nmos level=54 version=4.8.3 TOX=1.85n
+.ends nand2x1
+
+
+
