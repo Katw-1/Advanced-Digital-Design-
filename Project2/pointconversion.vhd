@@ -14,10 +14,10 @@ is
 	constant y_max_mandelbrot:	real :=  1.2;
 	
 	-- julia window, ranges are arbitrarily chosen
-	constant x_min_mandelbrot:	real := -2.0;	-- ranges keep 4:3 aspect ratio
-	constant x_max_mandelbrot:	real :=  2.0;
-	constant y_min_mandelbrot:	real := -1.5;
-	constant y_max_mandelbrot:	real :=  1.5;
+	constant x_min_julia:	real := -2.0;	-- ranges keep 4:3 aspect ratio
+	constant x_max_julia:	real :=  2.0;
+	constant y_min_julia:	real := -1.5;
+	constant y_max_julia:	real :=  1.5;
 	
 	---- deltas, conversion from integer to real is important!
 	-- mandelbrot deltas
