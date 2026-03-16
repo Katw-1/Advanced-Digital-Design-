@@ -41,5 +41,19 @@ begin
                     output.z <= z_next; 
                     output.c <= input.c;
 
-                    if mag2 > 
+                    if mag2 > threshold then 
+                        output.stage_overflow <= true;
+                        output.stage_data <= input.stage_data;
+                    else
+                        output.stage_overflow <= false; 
+                        output.stage_data <= input.stage_data + 1;
+                    end if; 
+                    output.stage_valid <= true;
+                end if; 
+            else  
+                output.stage_valid <= false; 
+        end if; 
+    end process; 
+end rtl; 
+
             
