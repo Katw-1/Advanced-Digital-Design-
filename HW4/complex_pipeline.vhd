@@ -37,13 +37,13 @@ begin
 stage : process(clock, reset)
 begin
 
-if reset = '0' then
+	if reset = '0' then
 
-    stage_out.stage_data <= 0;
-    stage_out.stage_overflow <= false;
-    stage_out.stage_valid <= false;
+    stage_outputput.stage_data <= 0;
+    stage_outputput.stage_overflow <= false;
+    stage_outputput.stage_valid <= false;
 
-elsif rising_edge(clock) then
+	elsif rising_edge(clock) then
 
 
 		-- PIPELINE STAGE 1 (Multiplications)
@@ -71,26 +71,26 @@ elsif rising_edge(clock) then
 
 		-- PIPELINE STAGE 3 (Comparison)
 		
-    stage_out.z.re <= real_s2;
-    stage_out.z.im <= imag_s2;
+    stage_output.z.re <= real_s2;
+    stage_output.z.im <= imag_s2;
 
-    stage_out.c <= c_s2;
+    stage_output.c <= c_s2;
 
     if overflow_s2 then
-        stage_out.stage_data <= data_s2;
+        stage_output.stage_data <= data_s2;
     else
-        stage_out.stage_data <= stage_num;
+        stage_output.stage_data <= stage_number;
     end if;
 
     if overflow_s2 then
-        stage_out.stage_overflow <= overflow_s2;
+        stage_output.stage_overflow <= overflow_s2;
     else
-        stage_out.stage_overflow <= (mag_s2 > threshold);
+        stage_output.stage_overflow <= (mag_s2 > threshold);
     end if;
 
-    stage_out.stage_valid <= valid_s2;
+    stage_output.stage_valid <= valid_s2;
 
-end if;
+	end if;
 
 end process stage;
 
