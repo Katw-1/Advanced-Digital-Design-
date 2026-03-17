@@ -1,6 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library ads;
+use ads.ads_complex_pkg.all;
+
 package vga_data is
 
 	type complex_pipeline_data is record 
