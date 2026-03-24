@@ -58,7 +58,7 @@ begin
 end generate pipeline;
 
 -- Final pipeline output
-``````````````````````	
+
 pipeline_output <= stage_data(total_stages);
 
 

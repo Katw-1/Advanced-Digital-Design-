@@ -6,12 +6,12 @@ use ads.ads_complex_pkg.all;
 
 package vga_data is
 
-	type complex_pipeline_data is record 
-		z: ads_complex;
-		c: ads_complex;
-		stage_data: natural;
-		stage_overflow: boolean;
-	end record complex_pipeline_data;
+--	type complex_pipeline_data is record 
+--		z: ads_complex;
+--		c: ads_complex;
+--		stage_data: natural;
+--		stage_overflow: boolean;
+--	end record complex_pipeline_data;
 
 	type timing_data is record
 		active:			natural;

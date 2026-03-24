@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 
 library vga;
 use vga.vga_data.all;
-use std.textio.all;
+
 
 entity vga_fsm is
 	generic (
