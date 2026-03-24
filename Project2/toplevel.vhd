@@ -4,6 +4,7 @@ use ieee.std_logic_1164.all;
 library vga;
 use vga.vga_data.all;
 
+<<<<<<< HEAD
 library ads;
 use ads.ads_fixed.all;
 use ads.ads_complex_pkg.all;
@@ -22,11 +23,24 @@ entity toplevel is
 		vga_clock: in std_logic;
 		reset: in std_logic;
 		mode:	 in std_logic;
+=======
+entity toplevel is
+	generic (
+		vga_res:	vga_timing := vga_res_default
+	);
+	port (
+		vga_clock: in std_logic;
+		reset: in std_logic; 
+>>>>>>> e8e74ca875c4b64f73c1ea1846a1f726eabdf51a
 		
 		h_sync: out std_logic;
 		v_sync: out std_logic; 
 		
+<<<<<<< HEAD
 		color: out rgb_color
+=======
+		color: out rbg_color
+>>>>>>> e8e74ca875c4b64f73c1ea1846a1f726eabdf51a
 	);
 	
 end entity toplevel;
@@ -34,6 +48,7 @@ end entity toplevel;
 architecture rtl of toplevel is
 
 signal point:  coordinate;
+<<<<<<< HEAD
 signal corrected_point : coordinate;
 
 signal point_valid:  boolean;
@@ -59,6 +74,15 @@ begin
 	-- --and not delayed_pipeline_output.stage_overflow
 
 	video_gen: entity vga.vga_fsm
+=======
+signal point_valid:  boolean;
+signal pixel_clock:  std_logic;
+signal pll_locked:  std_logic;
+
+begin
+	color <= color_blue when point_valid else color_black;
+	vga: vga_fsm
+>>>>>>> e8e74ca875c4b64f73c1ea1846a1f726eabdf51a
 		generic map(
 			vga_res => vga_res
 		)
@@ -71,11 +95,16 @@ begin
 			point => point ,
 			point_valid => point_valid
 		);
+<<<<<<< HEAD
+=======
+		
+>>>>>>> e8e74ca875c4b64f73c1ea1846a1f726eabdf51a
 	
 	pll: entity work.vga_pll
 		port map(
 			inclk0 => vga_clock,
 			c0	=> pixel_clock,
+<<<<<<< HEAD
 			locked => open
 		);
 
@@ -153,5 +182,10 @@ begin
 			pipeline_input.stage_valid <= delayed_point_valid;
 		end if;
 	end process feed_the_pipeline;
+=======
+			locked => pll_locked
+		);
+
+>>>>>>> e8e74ca875c4b64f73c1ea1846a1f726eabdf51a
  	
 end architecture rtl;
