@@ -24,7 +24,7 @@ architecture rtl of adc_fsm is
     signal state, next_state : state_type;
 
     --internal registers
-    singla data_reg : std_logic_vector(11 downto 0);
+    signal data_reg : std_logic_vector(11 downto 0);
 
 begin
     --state register
