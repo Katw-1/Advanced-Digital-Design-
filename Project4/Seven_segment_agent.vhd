@@ -126,7 +126,7 @@ begin
                         when "00" => readdata <= data;
                         when "01" => readdata <= control;
                         when "10" => readdata <= features_reg;
-                        when "11" => readdata <= x"F6A5A5AC";
+                        when "11" => readdata <= x"41445335";
                         when others => readdata <= (others => '0');
                     end case;
                 end if;
