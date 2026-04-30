@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.seven_segment_pkg.all; 
 
 entity seven_segment_agent is
     generic (
@@ -8,9 +9,9 @@ entity seven_segment_agent is
         decimal_support        : boolean := true;
         signed_support         : boolean := false;
         blank_zeros_support    : boolean := false;
-        implementer            : natural range 1 to 255;
+        implementer            : natural range 1 to 255 := 77;
         revision               : natural range 0 to 255 := 1;
-        num_digits             : positive
+        num_digits             : positive := 6
     );
     port (
         clk       : in  std_logic;
@@ -27,6 +28,15 @@ entity seven_segment_agent is
 end entity;
 
 architecture rtl of seven_segment_agent is
+	function lamp_mode
+		return lamp_configuration
+	is
+	begin
+		if lamp_mode_common_anode then
+			return common_anode;
+		end if;
+		return common_cathode;
+	end function lamp_mode;
 
     signal data    : std_logic_vector(31 downto 0);
     signal control : std_logic_vector(31 downto 0);
@@ -56,32 +66,6 @@ architecture rtl of seven_segment_agent is
             temp := temp(14 downto 0) & '0';
         end loop;
         return ret;
-    end function;
-
-    -- 7-seg decoder
-    
-    function decode7(d : std_logic_vector(3 downto 0))
-    return std_logic_vector is
-    begin
-        case d is
-            when "0000" => return "1000000";
-            when "0001" => return "1111001";
-            when "0010" => return "0100100";
-            when "0011" => return "0110000";
-            when "0100" => return "0011001";
-            when "0101" => return "0010010";
-            when "0110" => return "0000010";
-            when "0111" => return "1111000";
-            when "1000" => return "0000000";
-            when "1001" => return "0010000";
-            when "1010" => return "0001000";
-            when "1011" => return "0000011";
-            when "1100" => return "1000110";
-            when "1101" => return "0100001";
-            when "1110" => return "0000110";
-            when "1111" => return "0001110";
-            when others => return "1111111";
-        end case;
     end function;
 
 begin
@@ -142,7 +126,7 @@ begin
                         when "00" => readdata <= data;
                         when "01" => readdata <= control;
                         when "10" => readdata <= features_reg;
-                        when "11" => readdata <= x"F6A5A5AC";
+                        when "11" => readdata <= x"41445335";
                         when others => readdata <= (others => '0');
                     end case;
                 end if;
@@ -153,6 +137,13 @@ begin
 
     --- DATA PROCESSING
     process(data, control)
+		function flatten (
+				d: in seven_segment_config
+			) return std_logic_vector
+		is
+		begin
+			return d.g & d.f & d.e & d.d & d.c & d.b & d.a;
+		end function flatten;
         variable temp_signed : signed(15 downto 0);
         variable temp_abs    : unsigned(15 downto 0);
         variable bcd         : std_logic_vector(19 downto 0);
@@ -199,10 +190,12 @@ begin
                 blank := false;
             end if;
 
-            if blank and blank_zeros_support and control(2) = '1' then
-                lamps_internal(7*i+6 downto 7*i) <= (others => '1');
+			if control(0) = '0' then
+				lamps_internal(7*i + 6 downto 7*i) <= flatten(lamps_off(lamp_mode));
+            elsif blank and blank_zeros_support and control(2) = '1' then
+                lamps_internal(7*i+6 downto 7*i) <= flatten(lamps_off(lamp_mode));
             else
-                lamps_internal(7*i+6 downto 7*i) <= decode7(digits(i));
+                lamps_internal(7*i+6 downto 7*i) <= flatten(get_hex_digit(to_integer(unsigned(digits(i))), lamp_mode));
             end if;
         end loop;
 
