@@ -1,9 +1,9 @@
-ibrary ieee;
+library ieee;
 use ieee.std_logic_1164.all;
 
 entity bin_to_gray is
 	generic (
-		input_width:	positive :=	16
+		input_width:	positive :=	12
 	);
 	port (
 		bin_in:			in	std_logic_vector(input_width - 1 downto 0);
@@ -18,3 +18,4 @@ begin
 	shifted(bin_in'high) <= '0';
 	gray_out <= bin_in xor shifted; 
 end architecture rtl;
+

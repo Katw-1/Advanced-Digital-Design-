@@ -45,7 +45,7 @@ begin
 	--	* 2:	divide by 10
 	--	* 3:	divide by 20
 	--	* 4:	divide by 40
-	--	* 5:	divide by 80
+	--	* 5:	divide by 80jj
 	--	* 6:	invalid configuration
 	--	* 7:	invalid configuration
 	--
@@ -104,3 +104,4 @@ begin
 		);
 
 end architecture wrapper;
+

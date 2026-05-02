@@ -1,10 +1,11 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity FIFO_SYNC is
 	generic(
 		DATA_WIDTH : natural := 8;
-		ADDR_WIDTH : natural := 6
+		ADDRSIZE : natural := 6
 	);
 	
 	port(
@@ -21,9 +22,9 @@ entity FIFO_SYNC is
        rrst_n   : in  std_logic;
        rget     : in  std_logic;                             
        rdata    : out  std_logic_vector(DATA_WIDTH-1 downto 0); 
-		 rrdy     : out std_logic;
+		 rrdy     : out std_logic
 	);
-end entity FIFO_SYNC
+end entity FIFO_SYNC;
 
 architecture rtl of FIFO_SYNC is
 	signal wptr  : std_logic_vector(ADDRSIZE downto 0);
@@ -113,4 +114,6 @@ begin
             q     => rdata
         );
 
-end architecture rtl;
+end architecture rtl;  
+		  
+		  

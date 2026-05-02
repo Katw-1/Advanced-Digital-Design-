@@ -72,6 +72,7 @@ architecture rtl of seven_seg_driver is
         end case;
         return seg;
     end function;
+	 
 
 begin
 

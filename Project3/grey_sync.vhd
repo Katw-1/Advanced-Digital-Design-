@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
  
 entity gray_sync is
     generic (
-        WIDTH : positive := 8
+        WIDTH : positive := 12
     );
     port (
         clk_b    : in  std_logic;           

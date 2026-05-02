@@ -21,9 +21,9 @@ package seven_segment_pkg is
     constant default_lamp_config : lamp_configuration := common_anode;
 
     -- Subtype
-    
+    subtype hex_digit is natural range 0 to 15;
 
-    constant seven_segment_table : seven_segment_array := (
+    constant seven_segment_table : seven_segment_array(0 to 15) := (
         -- 0
     (a=>'1', b=>'1', c=>'1', d=>'1', e=>'1', f=>'1', g=>'0'),
 
@@ -73,9 +73,6 @@ package seven_segment_pkg is
     (a=>'1', b=>'0', c=>'0', d=>'0', e=>'1', f=>'1', g=>'1')
 
     );
-	 
-	 subtype hex_digit is natural range seven_segment_table'range;
-	 
     -- Function declarations
     function get_hex_digit (
         digit : in hex_digit;
