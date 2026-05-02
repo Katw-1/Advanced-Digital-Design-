@@ -277,3 +277,4 @@ package body vga_data is
 	end function do_vertical_sync;
 
 end package body vga_data;
+

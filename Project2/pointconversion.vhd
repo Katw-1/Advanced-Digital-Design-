@@ -1,8 +1,26 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library vga;
+use vga.vga_data.all;
+
+library ads;
+use ads.ads_complex_pkg.all;
+use ads.ads_fixed.all;
+
+package pointconversion is
 function map_coordinate_to_complex (
 		point:	in	coordinate;
+		vga_res:	in	vga_timing;
+		mode:	in	std_logic
+	) return ads_complex;
+end package pointconversion;
+
+package body pointconversion is
+
+function map_coordinate_to_complex (
+		point:	in	coordinate;
+		vga_res:	in	vga_timing;
 		mode:	in	std_logic
 	) return ads_complex
 is
@@ -22,14 +40,14 @@ is
 	---- deltas, conversion from integer to real is important!
 	-- mandelbrot deltas
 	constant delta_x_mandelbrot: ads_sfixed := to_ads_sfixed(
-				(x_max_mandelbrot - x_min_mandelbrot) / real(vga_res.horizontal.visible)
+				(x_max_mandelbrot - x_min_mandelbrot) / real(vga_res.horizontal.active)
 			);
 	constant delta_y_mandelbrot: ads_sfixed := to_ads_sfixed(
-				(y_min_mandelbrot - y_max_mandelbrot) / real(vga_res.vertical.visible)
+				(y_min_mandelbrot - y_max_mandelbrot) / real(vga_res.vertical.active)
 			);
 	-- TODO: similar for julia!
     constant delta_x_julia: ads_sfixed := to_ads_sfixed(
-				(x_max_juliat - x_min_julia) / real(vga_res.horizontal.active)
+				(x_max_julia - x_min_julia) / real(vga_res.horizontal.active)
 			);
 	constant delta_y_julia: ads_sfixed := to_ads_sfixed(
 				(y_min_julia - y_max_julia) / real(vga_res.vertical.active)
@@ -59,3 +77,5 @@ begin
 	
 	return ret;
 end function map_coordinate_to_complex;
+
+end package body pointconversion;

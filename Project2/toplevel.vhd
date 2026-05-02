@@ -15,7 +15,7 @@ use work.pointconversion.all;
 entity toplevel is
 	generic (
 		vga_res:	vga_timing := vga_res_default;
-		total_stages:	positive := 16;
+		total_stages:	positive := 4;
 		threshold:		ads_sfixed := to_ads_sfixed(4)
 	);
 	port (
@@ -34,30 +34,36 @@ end entity toplevel;
 architecture rtl of toplevel is
 
 signal point:  coordinate;
-signal corrected_point : coordinate;
 
 signal point_valid:  boolean;
 signal pixel_clock:  std_logic;
 
-signal delayed_point : coordinate;
-signal delayed_point_valid : boolean;
-
 signal pipeline_input, pipeline_output: complex_pipeline_data;
-signal delayed_pipeline_output: complex_pipeline_data;
+
+signal h_sync_sreg, v_sync_sreg: std_logic_vector(0 to total_stages);
+signal vga_h_sync, vga_v_sync: std_logic;
+
+signal seed_value: ads_complex;
 
 begin
-	corrected_point.x <= (delayed_point.x - total_stages) when delayed_point.x > total_stages else 0;
-	corrected_point.y <= delayed_point.y;
 
-	color <= color_comprimise when delayed_pipeline_output.stage_valid 
-		and delayed_point_valid 
-		and not delayed_pipeline_output.stage_overflow
+	color <= color_compromise when pipeline_output.stage_valid 
+		and point_valid 
+		and not pipeline_output.stage_overflow
 	else color_black;
 	
-	--delayed_pipeline_output.stage_valid 
-	-- and delayed_point_valid
-	-- --and not delayed_pipeline_output.stage_overflow
-
+	
+	sync_sregs: process(pixel_clock) is
+	begin
+		if rising_edge(pixel_clock) then
+			h_sync_sreg <= vga_h_sync & h_sync_sreg(0 to h_sync_sreg'high - 1);
+			v_sync_sreg <= vga_v_sync & v_sync_sreg(0 to v_sync_sreg'high - 1);
+		end if;
+	end process sync_sregs;
+	
+	h_sync <= h_sync_sreg(h_sync_sreg'high);
+	v_sync <= v_sync_sreg(v_sync_sreg'high);
+	
 	video_gen: entity vga.vga_fsm
 		generic map(
 			vga_res => vga_res
@@ -65,8 +71,8 @@ begin
 		port map(
 			vga_clock => pixel_clock,
 			reset => reset,
-			h_sync => h_sync,
-			v_sync => v_sync,
+			h_sync => vga_h_sync,
+			v_sync => vga_v_sync,
 			
 			point => point ,
 			point_valid => point_valid
@@ -91,66 +97,23 @@ begin
 			pipeline_output =>	pipeline_output
 		);
 		
-	shift_output: entity work.complex_shift_register
-		generic map(
-			depth => total_stages	
-		)
-		port map(
-			clock => pixel_clock,
-			reset => reset,
-			data_in => pipeline_output,
-			data_out => delayed_pipeline_output
-		);
-		
-	shift_point_x: entity work.natural_shift_register
-		generic map(
-			depth => total_stages
-		)
-		port map(
-			clock => pixel_clock, 
-			reset => reset,
-         data_in => point.x, 
-			data_out => delayed_point.x
-		);
-		
-	shift_point_y: entity work.natural_shift_register
-		generic map(
-			depth => total_stages
-		)
-		port map(
-			clock => pixel_clock, 
-			reset => reset,
-         data_in => point.y, 
-			data_out => delayed_point.y
-		);
-		
 	
-	shift_point_valid: entity work.boolean_shift_register
-		generic map(
-			depth => total_stages
-		)
-		port map(
-			clock => pixel_clock, 
-			reset => reset,
-         data_in => point_valid, 
-			data_out => delayed_point_valid
-		);
 		
-	
+	seed_value <= map_coordinate_to_complex(point, vga_res, mode);
 	
 	feed_the_pipeline: process(pixel_clock) is
 	begin
 		if rising_edge(pixel_clock) then
 			if mode = '1' then
 				pipeline_input.z <= complex_zero;
-				pipeline_input.c <= map_coordinate_to_complex(corrected_point, vga_res, '1');
+				pipeline_input.c <= seed_value;
 			else
-				pipeline_input.z <= map_coordinate_to_complex(corrected_point, vga_res, '0');
+				pipeline_input.z <= seed_value;
 				pipeline_input.c <= ads_cmplx(to_ads_sfixed(-1.0), to_ads_sfixed(0.25));
 			end if;
 			pipeline_input.stage_data <= 0;
 			pipeline_input.stage_overflow <= false;
-			pipeline_input.stage_valid <= delayed_point_valid;
+			pipeline_input.stage_valid <= point_valid;
 		end if;
 	end process feed_the_pipeline;
  	
