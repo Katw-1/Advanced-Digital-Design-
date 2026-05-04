@@ -1,4 +1,4 @@
- library ieee;
+library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
  
@@ -44,11 +44,15 @@ begin
     -- -------------------------
     -- Next state logic (empty check removed for debug)
     -- -------------------------
-    process(state)
+    process(state, head_ptr)
     begin
         case state is
             when IDLE =>
-                next_state <= READ_RAM;     -- always read, ignore empty
+                if tail_ptr_reg = unsigned(head_ptr) then
+						  next_state <= IDLE;       -- empty, wait for new data
+					 else
+						  next_state <= READ_RAM;   -- new data available, go read it
+					 end if;
  
             when READ_RAM =>
                 next_state <= INCREMENT;
@@ -76,5 +80,5 @@ begin
     end process;
  
 end architecture rtl;
-
+ 
  
