@@ -1,0 +1,37 @@
+# 7-Segment Display Pin Assignments
+
+# HEX0 (lamps[6:0])
+set_location_assignment PIN_AF14 -to lamps[0]
+set_location_assignment PIN_AG15 -to lamps[1]
+set_location_assignment PIN_AC14 -to lamps[2]
+set_location_assignment PIN_AD14 -to lamps[3]
+set_location_assignment PIN_AC13 -to lamps[4]
+set_location_assignment PIN_AC12 -to lamps[5]
+set_location_assignment PIN_AB13 -to lamps[6]
+
+# HEX1 (lamps[13:7])
+set_location_assignment PIN_AF15 -to lamps[7]
+set_location_assignment PIN_AG16 -to lamps[8]
+set_location_assignment PIN_AE14 -to lamps[9]
+set_location_assignment PIN_AF16 -to lamps[10]
+set_location_assignment PIN_AD13 -to lamps[11]
+set_location_assignment PIN_AE13 -to lamps[12]
+set_location_assignment PIN_AB12 -to lamps[13]
+
+# HEX2 (lamps[20:14])
+set_location_assignment PIN_AD11 -to lamps[14]
+set_location_assignment PIN_AF10 -to lamps[15]
+set_location_assignment PIN_AD12 -to lamps[16]
+set_location_assignment PIN_AC11 -to lamps[17]
+set_location_assignment PIN_AC10 -to lamps[18]
+set_location_assignment PIN_AB11 -to lamps[19]
+set_location_assignment PIN_AB10 -to lamps[20]
+
+# HEX3 (lamps[27:21])
+set_location_assignment PIN_AA10 -to lamps[21]
+set_location_assignment PIN_AB9  -to lamps[22]
+set_location_assignment PIN_AC9  -to lamps[23]
+set_location_assignment PIN_AD9  -to lamps[24]
+set_location_assignment PIN_AE9  -to lamps[25]
+set_location_assignment PIN_AF9  -to lamps[26]
+set_location_assignment PIN_AG9  -to lamps[27]

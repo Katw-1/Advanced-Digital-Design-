@@ -1,0 +1,177 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "lamps_lamps[0]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[1]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[2]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[3]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[4]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[5]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[6]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[7]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[8]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[9]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[10]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[11]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[12]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[13]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[14]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[15]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[16]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[17]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[18]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[19]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[20]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[21]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[22]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[23]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[24]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[25]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[26]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[27]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[28]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[29]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[30]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[31]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[32]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[33]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[34]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[35]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[36]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[37]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[38]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[39]",
+					"strict" : false
+				},
+				{
+					"name" : "lamps_lamps[40]",
+					"strict" : false
+				},
+				{
+					"name" : "clk_clk",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
